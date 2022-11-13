@@ -18,14 +18,15 @@ class NetworkManager {
     
     private init() {}
     
-    func fetch(from url: String, completion: @escaping(Result<[Headers], AFError>) -> Void) {
+    func fetch(from url: String, completion: @escaping(Result<Headers, AFError>) -> Void) {
         AF.request(url)
             .validate()
             .responseJSON { dataResponse in
                 switch dataResponse.result {
                 case .success(let value):
-                    print(value)
-                    let headers = Headers.getHeaders(from: value)
+                    guard let headersData = value as? [String: Any] else { return }
+                    let headers = Headers(headersData: headersData)
+                    print(headersData)
                     completion(.success(headers))
                 case .failure(let error):
                     completion(.failure(error))

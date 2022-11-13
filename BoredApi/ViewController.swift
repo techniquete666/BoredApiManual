@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var headerslabel: UILabel!
     
-    private var headers: [Headers] = []
+    private var headers: Headers!
 
     override func viewDidLoad() {
         super.viewDidLoad()

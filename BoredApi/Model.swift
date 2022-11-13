@@ -34,9 +34,4 @@ struct Headers {
         type = headersData["type"] as? String ?? ""
 
     }
-    
-    static func getHeaders(from value: Any) -> [Headers] {
-        guard let headersData = value as? [[String: Any]] else { return [] }
-        return headersData.map { Headers(headersData: $0) }
-    }
 }
