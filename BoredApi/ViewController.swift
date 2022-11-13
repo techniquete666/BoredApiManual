@@ -8,10 +8,29 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet var headerslabel: UILabel!
+    
+    private var headers: [Headers] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        fetch()
+    }
+    
+    @IBAction func buttonPressed() {
+        headerslabel.text = headers.description
+    }
+    
+    private func fetch() {
+        NetworkManager.shared.fetch(from: Link.link.rawValue) { [weak self] result in
+            switch result {
+            case .success(let headers):
+                self?.headers = headers
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
 
